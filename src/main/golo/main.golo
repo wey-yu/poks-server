@@ -4,16 +4,12 @@ import redis.clients.jedis.Jedis
 import gololang.Errors
 import spark.Spark
 import spark.augmentations
+import jedis.augmentations
 import http
 import JSON
 import gololang.Async
 import gololang.concurrent.workers.WorkerEnvironment
 
-
-augment redis.clients.jedis.Jedis {
-  function setAsJson = |this, key, model| -> this: set(key, JSON.stringify(model))
-  function getFromJson = |this, key| -> JSON.toDynamicObject(this: get(key))
-}
 
 function checkServices = |env, rdb| {
   return env: spawn(|options| {
