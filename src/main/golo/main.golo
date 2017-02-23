@@ -23,7 +23,17 @@ function checkServices = |env, rdb| {
             service: url()+"/hello" # service must have a `hello` route
           )
           : onSet(|result| { # if success
-            println("😺: " + service: url() + " is active | " + result: data())
+            if(result: code(): equals(404)) {
+              println("😡: " + service: url() + " can't be reached | 404")
+              # delete in redis db
+              trying({
+                rdb: del(service: name()+":"+service: id())
+              }) # TODO: add either
+
+            } else {
+              println("😺: " + service: url() + " is active | " + result: data())
+            }
+
           })
           : onFail(|error| { # if failed
             println("😡: " + service: url() + " can't be reached | " + error: message())
