@@ -7,6 +7,10 @@ Microservices discovery server
 mvn package
 ```
 
+## Dependencies
+
+https://github.com/wey-yu/poks-core-libs
+
 ## Run
 
 ⚠️ You need to set some environment variables
